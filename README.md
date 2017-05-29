@@ -8,3 +8,4 @@ cd Ionic3Richtext
 npm install
 ionic serve
 ```
+https://www.youtube.com/watch?v=4KaEiJ3pyKQ&t=211s
