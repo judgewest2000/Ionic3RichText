@@ -11,6 +11,9 @@ rich-text {
             padding-left: 2px;
             max-width: 95%;
         }
+         :empty {
+            content: attr("asaduisahfu");
+        }
     }
     div.decorator {
         background: #444;
@@ -30,3 +33,12 @@ rich-text {
         background-color: #fff;
     }
 }
+
+// [contenteditable]:empty:before {
+//     content: attr(placeholder);
+//     /* For Firefox */
+// }
+// [contenteditable]:empty:before {
+//     content: attr(placeholder);
+//     /* For Firefox */
+// }
