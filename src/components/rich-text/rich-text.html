@@ -1,4 +1,8 @@
-<div #editor contenteditable="true" class="maineditor" tappable>
+<div #styler>
+
+</div>
+
+<div #editor contenteditable="true" class="maineditor" tappable [attr.data-placeholder-text]="getPlaceholderText()">
 </div>
 
 <!-- https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand -->

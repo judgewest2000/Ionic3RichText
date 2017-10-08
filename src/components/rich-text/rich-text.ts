@@ -1,3 +1,4 @@
+import { StatusBar } from '@ionic-native/status-bar';
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormControl } from "@angular/forms";
 
@@ -15,36 +16,56 @@ export class RichTextComponent {
 
   @ViewChild('editor') editor: ElementRef;
   @ViewChild('decorate') decorate: ElementRef;
+  @ViewChild('styler') styler: ElementRef;
 
   @Input() formControlItem: FormControl;
 
+  @Input() placeholderText: string;
 
-  private wireupResize() {
 
-    let element = this.editor.nativeElement as HTMLDivElement;
-
-    let height = (window.innerHeight || document.body.clientHeight) - 250;
-    let textareaHeight = Math.round((height / 100.00) * 45);
-    element.style.height = `${textareaHeight}px`;
-
+  getPlaceholderText() {
+    if (this.placeholderText !== undefined) {
+      return this.placeholderText
+    }
+    return '';
   }
 
+  uniqueId = `editor${Math.floor(Math.random() * 1000000)}`;
+
+  private stringTools = {
+    isNullOrWhiteSpace: (value: string) => {
+      if (value == null || value == undefined) {
+        return true;
+      }
+      value = value.replace(/[\n\r]/g, '');
+      value = value.split(' ').join('');
+
+      return value.length === 0;
+    }
+  };
+
   private updateItem() {
-    let element = this.editor.nativeElement as HTMLDivElement;
+    const element = this.editor.nativeElement as HTMLDivElement;
     element.innerHTML = this.formControlItem.value;
 
-    if (element.innerHTML === null || element.innerHTML === '') {
-      element.innerHTML = '<div></div>';
-    }
+    // if (element.innerHTML === null || element.innerHTML === '') {
+    //   element.innerHTML = '<div></div>';
+    // }
 
-    let updateItem = () => {
-      this.formControlItem.setValue(element.innerHTML);
+    const reactToChangeEvent = () => {
+
+      if (this.stringTools.isNullOrWhiteSpace(element.innerText)) {
+        element.innerHTML = '<div></div>';
+        this.formControlItem.setValue(null);
+      } else {
+        this.formControlItem.setValue(element.innerHTML);
+      }
     };
 
-    element.onchange = () => updateItem();
-    element.onkeyup = () => updateItem();
-    element.onpaste = () => updateItem();
-    element.oninput = () => updateItem();
+    element.onchange = () => reactToChangeEvent();
+    element.onkeyup = () => reactToChangeEvent();
+    element.onpaste = () => reactToChangeEvent();
+    element.oninput = () => reactToChangeEvent();
   }
 
   private wireupButtons() {
@@ -71,10 +92,10 @@ export class RichTextComponent {
   }
 
   ngAfterContentInit() {
-     
-    this.wireupResize();
+
     this.updateItem();
     this.wireupButtons();
+
   }
 
 }

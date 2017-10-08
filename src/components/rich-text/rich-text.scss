@@ -1,5 +1,5 @@
 rich-text {
-    *[contenteditable] {
+    [contenteditable=true] {
         -webkit-user-select: auto !important;
         padding: 2px;
         margin: 2px;
@@ -7,12 +7,17 @@ rich-text {
         overflow-x: scroll;
         overflow-y: auto;
         word-wrap: normal;
+        height: 40vh;
         img {
             padding-left: 2px;
             max-width: 95%;
         }
-         :empty {
-            content: attr("asaduisahfu");
+        background-color: #fff;
+        &:empty:before {
+            content: attr(data-placeholder-text);
+            display: block;
+            color: lightgrey;
+            font-weight: bold;
         }
     }
     div.decorator {
@@ -29,16 +34,4 @@ rich-text {
             padding-right: 1px;
         }
     }
-    .maineditor {
-        background-color: #fff;
-    }
 }
-
-// [contenteditable]:empty:before {
-//     content: attr(placeholder);
-//     /* For Firefox */
-// }
-// [contenteditable]:empty:before {
-//     content: attr(placeholder);
-//     /* For Firefox */
-// }
