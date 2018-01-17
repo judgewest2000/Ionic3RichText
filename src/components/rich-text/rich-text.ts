@@ -1,6 +1,7 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormControl } from "@angular/forms";
+import { ImageMockModule } from '../../mock/image-mock';
 
 
 @Component({
@@ -90,6 +91,20 @@ export class RichTextComponent {
     }
 
   }
+
+  insertImage() {
+    const img = document.createElement('img');
+
+    img.src = ImageMockModule.GooglePlay();
+
+    img.style.width = "100px";
+
+    const imgHtml = img.outerHTML;
+
+    document.execCommand("InsertHTML", false, imgHtml);
+  }
+
+
 
   ngAfterContentInit() {
 

@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RichTextComponent } from '../components/rich-text/rich-text';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -27,6 +28,7 @@ import { RichTextComponent } from '../components/rich-text/rich-text';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+  ],
+
 })
 export class AppModule {}
